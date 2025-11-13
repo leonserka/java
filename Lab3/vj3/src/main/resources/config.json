@@ -1,0 +1,41 @@
+{
+  "devices": [
+    {
+      "id": "Meter01",
+      "broker": "tcp://localhost:1883",
+      "topicPrefix": "iot/water/meter1",
+      "specs": [
+        { "type": "temperature", "min": -3266.8, "max": 3266.8, "factor": 10, "unit": "°C" },
+        { "type": "pressure", "min": 0, "max": 65.336, "factor": 1000, "unit": "Bar" },
+
+        { "type": "consumption_1min", "min": 0, "max": 65336, "factor": 0, "unit": "L" },
+        { "type": "consumption_10min", "min": 0, "max": 65336, "factor": 0, "unit": "L" },
+        { "type": "consumption_1h", "min": 0, "max": 65336, "factor": 0, "unit": "L" },
+        { "type": "consumption_1day", "min": 0, "max": 65336, "factor": 0, "unit": "L" },
+
+        { "type": "consumption_1week", "min": 0, "max": 6533.6, "factor": 10, "unit": "m³" },
+        { "type": "consumption_1month", "min": 0, "max": 6533.6, "factor": 10, "unit": "m³" },
+        { "type": "consumption_1year", "min": 0, "max": 6533.6, "factor": 10, "unit": "m³" }
+      ]
+    },
+
+    {
+      "id": "Meter02",
+      "broker": "tcp://localhost:1883",
+      "topicPrefix": "iot/water/meter2",
+      "specs": [
+        { "type": "temperature", "min": -3266.8, "max": 3266.8, "factor": 10, "unit": "°C" },
+        { "type": "pressure", "min": 0, "max": 65.336, "factor": 1000, "unit": "Bar" },
+
+        { "type": "consumption_1min", "min": 0, "max": 65336, "factor": 0, "unit": "L" },
+        { "type": "consumption_10min", "min": 0, "max": 65336, "factor": 0, "unit": "L" },
+        { "type": "consumption_1h", "min": 0, "max": 65336, "factor": 0, "unit": "L" },
+        { "type": "consumption_1day", "min": 0, "max": 65336, "factor": 0, "unit": "L" },
+
+        { "type": "consumption_1week", "min": 0, "max": 6533.6, "factor": 10, "unit": "m³" },
+        { "type": "consumption_1month", "min": 0, "max": 6533.6, "factor": 10, "unit": "m³" },
+        { "type": "consumption_1year", "min": 0, "max": 6533.6, "factor": 10, "unit": "m³" }
+      ]
+    }
+  ]
+}
