@@ -1,8 +1,8 @@
-package hr.unist.lab4.controller;
+package hr.unist.lab5.controller;
 
-import hr.unist.lab4.dto.BookPatchRequest;
-import hr.unist.lab4.model.Book;
-import hr.unist.lab4.service.BookService;
+import hr.unist.lab5.dto.BookPatchRequest;
+import hr.unist.lab5.model.Book;
+import hr.unist.lab5.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

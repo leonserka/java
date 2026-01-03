@@ -1,8 +1,8 @@
-package hr.unist.lab4.service;
+package hr.unist.lab5.service;
 
-import hr.unist.lab4.dto.BookPatchRequest;
-import hr.unist.lab4.model.Book;
-import hr.unist.lab4.repository.BookRepository;
+import hr.unist.lab5.dto.BookPatchRequest;
+import hr.unist.lab5.model.Book;
+import hr.unist.lab5.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

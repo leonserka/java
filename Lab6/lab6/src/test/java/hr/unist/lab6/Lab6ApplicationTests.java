@@ -1,10 +1,10 @@
-package hr.unist.lab5;
+package hr.unist.lab6;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Lab4ApplicationTests {
+class Lab6ApplicationTests {
 
 	@Test
 	void contextLoads() {

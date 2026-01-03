@@ -2,14 +2,15 @@ package hr.unist.lab5.service;
 
 import hr.unist.lab5.dto.BookPatchRequest;
 import hr.unist.lab5.model.Book;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface BookService {
-
     Book create(Book book);
     Book update(Long id, Book book);
     Book patch(Long id, BookPatchRequest request);
     void delete(Long id);
     Book getById(Long id);
-    List<Book> getAll();
+
+    Page<Book> getAll(String title, String author, String genre, Integer year, Pageable pageable);
 }

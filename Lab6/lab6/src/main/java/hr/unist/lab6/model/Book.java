@@ -1,4 +1,4 @@
-package hr.unist.lab5.model;
+package hr.unist.lab6.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -16,14 +16,17 @@ public class Book {
     @NotBlank(message = "Author is required")
     private String author;
 
+    private String genre;
+
     private int year;
 
     public Book() {}
 
-    public Book(Long id, String title, String author, int year) {
+    public Book(Long id, String title, String author, String genre, int year) {
         this.id = id;
         this.title = title;
         this.author = author;
+        this.genre = genre;
         this.year = year;
     }
 
@@ -35,6 +38,9 @@ public class Book {
 
     public String getAuthor() { return author; }
     public void setAuthor(String author) { this.author = author; }
+
+    public String getGenre() { return genre; }
+    public void setGenre(String genre) { this.genre = genre; }
 
     public int getYear() { return year; }
     public void setYear(int year) { this.year = year; }

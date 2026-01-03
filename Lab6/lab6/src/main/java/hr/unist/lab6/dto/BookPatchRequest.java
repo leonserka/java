@@ -1,4 +1,4 @@
-package hr.unist.lab5.dto;
+package hr.unist.lab6.dto;
 
 public class BookPatchRequest {
 
