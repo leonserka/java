@@ -1,8 +1,10 @@
 package hr.unist.lab6.model;
 
-import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Reservation {
@@ -11,39 +13,45 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne
     private Member member;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne
     private Book book;
 
-    @Enumerated(EnumType.STRING)
-    private ReservationStatus status = ReservationStatus.PENDING;
-
-    private LocalDateTime createdAt = LocalDateTime.now();
-    private LocalDateTime fulfilledAt;
+    private boolean fulfilled = false;
 
     public Reservation() {}
 
-    public Reservation(Member member, Book book) {
+    public Long getId() {
+        return id;
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public boolean isFulfilled() {
+        return fulfilled;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setMember(Member member) {
         this.member = member;
+    }
+
+    public void setBook(Book book) {
         this.book = book;
     }
 
-    public Long getId() { return id; }
-
-    public Member getMember() { return member; }
-    public void setMember(Member member) { this.member = member; }
-
-    public Book getBook() { return book; }
-    public void setBook(Book book) { this.book = book; }
-
-    public ReservationStatus getStatus() { return status; }
-    public void setStatus(ReservationStatus status) { this.status = status; }
-
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-
-    public LocalDateTime getFulfilledAt() { return fulfilledAt; }
-    public void setFulfilledAt(LocalDateTime fulfilledAt) { this.fulfilledAt = fulfilledAt; }
+    public void setFulfilled(boolean fulfilled) {
+        this.fulfilled = fulfilled;
+    }
 }

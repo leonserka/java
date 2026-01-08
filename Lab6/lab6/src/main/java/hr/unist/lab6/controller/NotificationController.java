@@ -1,7 +1,7 @@
 package hr.unist.lab6.controller;
 
 import hr.unist.lab6.model.Notification;
-import hr.unist.lab6.service.NotificationService;
+import hr.unist.lab6.repository.NotificationRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,14 +11,14 @@ import java.util.List;
 @RequestMapping("/api/notifications")
 public class NotificationController {
 
-    private final NotificationService service;
+    private final NotificationRepository repository;
 
-    public NotificationController(NotificationService service) {
-        this.service = service;
+    public NotificationController(NotificationRepository repository) {
+        this.repository = repository;
     }
 
     @GetMapping("/member/{memberId}")
-    public ResponseEntity<List<Notification>> byMember(@PathVariable Long memberId) {
-        return ResponseEntity.ok(service.getByMemberId(memberId));
+    public ResponseEntity<List<Notification>> getForMember(@PathVariable Long memberId) {
+        return ResponseEntity.ok(repository.findByMemberId(memberId));
     }
 }

@@ -1,66 +1,65 @@
 package hr.unist.lab6.service;
 
 import hr.unist.lab6.exception.BookNotFoundException;
-import hr.unist.lab6.model.*;
+import hr.unist.lab6.exception.MemberNotFoundException;
+import hr.unist.lab6.exception.ReservationNotFoundException;
+import hr.unist.lab6.model.Book;
+import hr.unist.lab6.model.Member;
+import hr.unist.lab6.model.Notification;
+import hr.unist.lab6.model.Reservation;
 import hr.unist.lab6.repository.BookRepository;
 import hr.unist.lab6.repository.MemberRepository;
 import hr.unist.lab6.repository.NotificationRepository;
 import hr.unist.lab6.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
-    private final ReservationRepository reservationRepo;
-    private final MemberRepository memberRepo;
-    private final BookRepository bookRepo;
-    private final NotificationRepository notificationRepo;
+    private final ReservationRepository reservationRepository;
+    private final MemberRepository memberRepository;
+    private final BookRepository bookRepository;
+    private final NotificationRepository notificationRepository;
 
     public ReservationServiceImpl(
-            ReservationRepository reservationRepo,
-            MemberRepository memberRepo,
-            BookRepository bookRepo,
-            NotificationRepository notificationRepo
+            ReservationRepository reservationRepository,
+            MemberRepository memberRepository,
+            BookRepository bookRepository,
+            NotificationRepository notificationRepository
     ) {
-        this.reservationRepo = reservationRepo;
-        this.memberRepo = memberRepo;
-        this.bookRepo = bookRepo;
-        this.notificationRepo = notificationRepo;
+        this.reservationRepository = reservationRepository;
+        this.memberRepository = memberRepository;
+        this.bookRepository = bookRepository;
+        this.notificationRepository = notificationRepository;
     }
 
     @Override
-    public Reservation create(Long memberId, Long bookId) {
-        Member member = memberRepo.findById(memberId)
-                .orElseThrow(() -> new IllegalArgumentException("Member with id " + memberId + " not found"));
+    public Reservation createReservation(Long memberId, Long bookId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberNotFoundException("Member not found with id: " + memberId));
 
-        Book book = bookRepo.findById(bookId)
-                .orElseThrow(() -> new BookNotFoundException("Book with id " + bookId + " not found"));
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException("Book not found with id: " + bookId));
 
-        Reservation reservation = new Reservation(member, book);
-        reservation.setStatus(ReservationStatus.PENDING);
+        Reservation r = new Reservation();
+        r.setMember(member);
+        r.setBook(book);
+        r.setFulfilled(false);
 
-        return reservationRepo.save(reservation);
+        return reservationRepository.save(r);
     }
 
     @Override
-    @Transactional
-    public Reservation fulfill(Long reservationId) {
-        Reservation reservation = reservationRepo.findById(reservationId)
-                .orElseThrow(() -> new IllegalArgumentException("Reservation with id " + reservationId + " not found"));
+    public Reservation fulfillReservation(Long reservationId) {
+        Reservation r = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new ReservationNotFoundException("Reservation not found with id: " + reservationId));
 
-        if (reservation.getStatus() == ReservationStatus.FULFILLED) {
-            throw new IllegalArgumentException("Reservation already fulfilled");
-        }
+        r.setFulfilled(true);
+        Reservation saved = reservationRepository.save(r);
 
-        reservation.setStatus(ReservationStatus.FULFILLED);
-        reservation.setFulfilledAt(LocalDateTime.now());
-        Reservation saved = reservationRepo.save(reservation);
-        String title = reservation.getBook().getTitle();
-        String msg = "Knjiga '" + title + "' je sada dostupna za posudbu.";
-        notificationRepo.save(new Notification(reservation.getMember(), msg));
+        String msg = "Knjiga '" + saved.getBook().getTitle() + "' je sada dostupna za posudbu.";
+        Notification n = new Notification(msg, saved.getMember());
+        notificationRepository.save(n);
 
         return saved;
     }

@@ -12,20 +12,27 @@ import java.util.List;
 @RequestMapping("/api/members")
 public class MemberController {
 
-    private final MemberRepository repo;
+    private final MemberRepository repository;
 
-    public MemberController(MemberRepository repo) {
-        this.repo = repo;
+    public MemberController(MemberRepository repository) {
+        this.repository = repository;
     }
 
     @PostMapping
     public ResponseEntity<Member> create(@RequestBody Member member) {
-        Member saved = repo.save(member);
-        return ResponseEntity.created(URI.create("/api/members/" + saved.getId())).body(saved);
+        Member created = repository.save(member);
+        return ResponseEntity
+                .created(URI.create("/api/members/" + created.getId()))
+                .body(created);
     }
 
     @GetMapping
-    public List<Member> getAll() {
-        return repo.findAll();
+    public ResponseEntity<List<Member>> getAll() {
+        return ResponseEntity.ok(repository.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Member> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(repository.findById(id).orElseThrow());
     }
 }

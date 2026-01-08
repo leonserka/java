@@ -9,7 +9,7 @@
 		<relativePath/>
 	</parent>
 	<groupId>hr.unist</groupId>
-	<artifactId>lab4</artifactId>
+	<artifactId>lab6</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>lab4</name>
 	<description>Spring Boot Book Management - Lab 4</description>

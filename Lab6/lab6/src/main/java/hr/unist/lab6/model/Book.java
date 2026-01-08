@@ -1,7 +1,6 @@
 package hr.unist.lab6.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Book {
@@ -10,38 +9,58 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Title is required")
     private String title;
-
-    @NotBlank(message = "Author is required")
     private String author;
-
     private String genre;
-
-    private int year;
+    private Integer publishedYear;
 
     public Book() {}
 
-    public Book(Long id, String title, String author, String genre, int year) {
-        this.id = id;
+    public Book(String title, String author, String genre, Integer publishedYear) {
         this.title = title;
         this.author = author;
         this.genre = genre;
-        this.year = year;
+        this.publishedYear = publishedYear;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public String getTitle() {
+        return title;
+    }
 
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    public String getGenre() { return genre; }
-    public void setGenre(String genre) { this.genre = genre; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public int getYear() { return year; }
-    public void setYear(int year) { this.year = year; }
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public Integer getPublishedYear() {
+        return publishedYear;
+    }
+
+    public void setPublishedYear(Integer publishedYear) {
+        this.publishedYear = publishedYear;
+    }
 }

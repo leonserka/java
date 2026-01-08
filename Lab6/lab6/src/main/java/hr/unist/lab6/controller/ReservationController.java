@@ -1,6 +1,5 @@
 package hr.unist.lab6.controller;
 
-import hr.unist.lab6.dto.ReservationCreateRequest;
 import hr.unist.lab6.model.Reservation;
 import hr.unist.lab6.service.ReservationService;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +18,18 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<Reservation> create(@RequestBody ReservationCreateRequest req) {
-        Reservation created = service.create(req.getMemberId(), req.getBookId());
-        return ResponseEntity.created(URI.create("/api/reservations/" + created.getId())).body(created);
+    public ResponseEntity<Reservation> create(
+            @RequestParam Long memberId,
+            @RequestParam Long bookId
+    ) {
+        Reservation created = service.createReservation(memberId, bookId);
+        return ResponseEntity
+                .created(URI.create("/api/reservations/" + created.getId()))
+                .body(created);
     }
 
     @PutMapping("/{id}/fulfill")
     public ResponseEntity<Reservation> fulfill(@PathVariable Long id) {
-        return ResponseEntity.ok(service.fulfill(id));
+        return ResponseEntity.ok(service.fulfillReservation(id));
     }
 }
